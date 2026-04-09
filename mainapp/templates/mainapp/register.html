@@ -1,0 +1,70 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/bootstrap.css' %}">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #590a9d 0%, #a43dbd 50%, #ff8359 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body class="d-flex align-items-center justify-content-center">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-8">
+            <div class="card p-4">
+                <div class="card-body">
+
+                    <div class="text-center mb-4">
+                        <h4 class="fw-bold" style="color:  #590a9d;;">Create Account On HireHub</h4>
+                    </div>
+                     {% if messages %}
+          {% for m in messages %}
+          <div class="alert alert-{{ m.tags }}">{{ m }}</div>
+          {% endfor %}
+          {% endif %}
+
+                   <form action="" method="post" class="mt-5">
+            {% csrf_token %}
+            <i class="fa-solid fa-clipboard-user px-2"></i><label for="type" class="mb-2 fw-bold">Account type</label>
+            <select name="usertype" id="usertype" class="form-select mb-4">  
+                <option value="" selected disabled>--Select Account Type--</option>
+                <option value="jobseeker">Jobseeker</option>
+                <option value="employer">Employer</option>
+            </select>
+            <div class="d-flex justify-content-between"><span class="w-50 pe-2"><i class="fa-solid fa-user px-2"></i><label for="firstname" class="mb-2 fw-bold">First Name*</label>
+            <input type="text" name="firstname" id="firstname" class="form-control mb-4"></span>
+            <span class="w-50"><i class="fa-solid fa-user px-2"></i><label for="lastname" class="mb-2 fw-bold">Last Name*</label>
+            <input type="text" name="lastname" id="lastname" class="form-control mb-4"></span></div>
+            <i class="fa-solid fa-envelope px-2"></i><label for="email" class="mb-2 fw-bold">Email*</label>
+            <input type="email" name="email" id="email" class="form-control mb-4">
+            <i class="fa-solid fa-address-book px-2"></i><label for="contact_no" class="mb-2 fw-bold">Contact No.*</label>
+            <input type="number" name="contact_no" id="contact_no" class="form-control mb-4">
+            <i class="fa-solid fa-lock px-2"></i><label for="password" class="mb-2 fw-bold">Password*</label>
+            <input type="password" name="password" id="password" class="form-control mb-4">
+            <i class="fa-solid fa-calendar-check px-2"></i><label for="confirm_password" class="mb-2 fw-bold">Confirm Password*</label>
+            <input type="password" name="confirm_password" id="confirm_password" class="form-control mb-4">
+            <p class="d-flex justify-content-between"><span><input type="checkbox" class="me-2">By Hitting the register
+                    button, you Agree <a href=""> to the terms and conditions</a></span></p>
+            <button class="btn btn-success mt-3 w-100 btn-sub fw-bold py-2">Register</button>
+        </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'mainapp/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

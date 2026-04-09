@@ -1,0 +1,17 @@
+{% extends 'admin/adminbase.html'%}
+{% load static %}
+{% block admin %}
+
+        <div class="row mt-5">
+            <div class="col-sm-4 mx-auto shadow rounded-3 p-4 mt-5" style=" background: linear-gradient(135deg, #590a9d 0%, #a43dbd 50%, #ff8359 100%);">
+                <h2 class="text-center my-3 fw-bold text-white">Add Category</h2>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    
+                    <input type="text" id="categ" name="category_name" placeholder="Enter Category Name" class="form-control mb-4">
+                    <div class="text-center"><button class="btn" style="background: linear-gradient(90deg, #6B0AC9 0%, #9D3BBB 100%); color: white;">Save Category</button></div>
+                </form>
+            </div>
+        </div>
+ 
+{% endblock %}

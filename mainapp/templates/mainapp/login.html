@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #590a9d 0%, #a43dbd 50%, #ff8359 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+
+            <!-- Right Column -->
+            <div class="col-lg-6 col-md-10 text-white text-center text-lg-start mb-5 mb-lg-0 pe-lg-5 mainText">
+                <h1 class="mb-3">Welcome to HireHub</h1>
+                <p>Your gateway to better career opportunities starts here.
+                    Log in to explore jobs, connect with top employers, and take the next step toward your dream career.
+                </p>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-5 col-md-8">
+                <div class="card p-4">
+                    <a href="{% url 'index' %}"><i class="fa-solid fa-circle-arrow-left fs-3 btn-theme-login p-1 rounded-circle"></i></a>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <span class="card-header-text">USER LOGIN</span>
+                        </div>
+                        {% if messages %}
+                        {% for m in messages %}
+                        <div class="alert alert-{{m.tags}} alert-dismissible fade show" role="alert">
+                            <strong>{{m}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control rounded-end-3" name="username"
+                                    placeholder="Username" required>
+                            </div>
+
+
+
+                            <div class="input-group mb-3">
+
+                                <input type="password" name="password" class="form-control rounded-end-3"
+                                    placeholder="Password" aria-label="Password" required>
+                            </div>
+                            <button type="submit" class="btn btn-theme-login w-100 py-2 rounded-3 shadow-sm text-white">
+                                Login
+                            </button>
+
+
+                            <div class="text-center mt-3">
+                                <a href="{% url 'forgot_password' %}" class="link-theme">Forgotten password?</a>
+                            </div>
+
+                            <hr class="my-4 text-muted">
+
+                            <div class="text-center">
+                                <a href="{% url 'register' %}" type="Submit"
+                                    class="btn btn-theme-create px-4 py-2 rounded-3 shadow-sm text-white">
+                                    Create new account
+                                </a>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static 'mainapp/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

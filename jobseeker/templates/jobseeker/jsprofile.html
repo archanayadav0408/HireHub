@@ -1,0 +1,175 @@
+{% extends 'jobseeker/jobseekerbase.html'%} {% load static %} {% block admin %}
+<h2 class="fw-bold mb-4">My Profile</h2>
+
+<div
+  class="profile-header p-4 mb-4 rounded-3"
+  style="
+    background: linear-gradient(135deg, #590a9d, #a43dbd, #ff8359);
+    color: white;
+  "
+>
+  <div class="row align-items-center">
+    <div class="col-md-2 text-center">
+      {% if js.picture %}
+      <img
+        src="{{js.picture.url}}"
+        class="rounded-circle border border-3 border-white"
+        style="width: 120px; height: 120px; object-fit: cover"
+      />
+      {% else %} No Image Found {% endif %}
+    </div>
+
+    <div class="col-md-7">
+      <h3 class="fw-bold text-white mb-1">
+        {{js.first_name}} {{js.last_name}}
+      </h3>
+
+      <p class="mb-1">
+        <i class="fa-solid fa-phone me-2"></i>{{js.contact_no}}
+      </p>
+
+      <p class="mb-1"><i class="fa-solid fa-envelope me-2"></i>{{js.email}}</p>
+
+      <p class="mb-0">
+        <i class="fa-solid fa-location-dot me-2"></i>
+        {{js.city}}, {{js.state}}, {{js.country}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<h4 class="section-title ms-2">Personal Information</h4>
+<div
+  class="row profile-section shadow p-3 mx-auto rounded-3"
+  style="width: 95%"
+>
+  <div class="col-md-6">
+    <h5>DOB</h5>
+    <p>{{js.dob}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h5>Gender</h5>
+    <p>{{js.gender|title}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h5>House / Street</h5>
+    <p>{{js.locality}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h5>City</h5>
+    <p>{{js.city}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h5>District</h5>
+    <p>{{js.district}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h5>Zip Code</h5>
+    <p>{{js.zip_code}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h5>State</h5>
+    <p>{{js.state}}</p>
+  </div>
+
+  <div class="col-md-6">
+    <h5>Country</h5>
+    <p>{{js.country}}</p>
+  </div>
+</div>
+
+<h4 class="section-title ms-2">Education</h4>
+{% for e in educations %}
+<div
+  class="row profile-section p-3 mx-auto rounded-3 shadow mb-2"
+  style="width: 95%"
+>
+  <div class="row align-items-center">
+    <div class="col-md-8">
+      <h5 class="fw-bold">{{e.degree_name|title}}</h5>
+
+      <p class="mb-1">{{e.specialization}}</p>
+
+      <p class="text-muted">{{e.institute}} • {{e.university}}</p>
+    </div>
+
+    <div class="col-md-3 text-end">
+      <span class="fw-semibold"> {{e.start_year}} - {{e.end_year}} </span>
+    </div>
+
+    <div class="col-md-1 text-end">
+      <a
+        href=""
+        class="btn btn-sm btn-primary"
+        style="background: linear-gradient(135deg, #590a9d, #b840d6)"
+      >
+        <i class="ti ti-edit"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+<h4 class="section-title ms-2">Experience</h4>
+
+{% for ex in experience %}
+
+<div
+  class="row profile-section p-3 mx-auto rounded-3 shadow mb-2"
+  style="width: 95%"
+>
+  <div class="row align-items-center">
+    <div class="col-md-8">
+      <h5 class="fw-bold">{{ex.company_name|title}}</h5>
+
+      <p class="mb-1">{{ex.designation}}</p>
+
+      <p class="text-muted">{{ex.description|linebreaks}}</p>
+    </div>
+
+    <div class="col-md-3 text-end">
+      <span class="fw-semibold"> {{ex.start_date}} - {{ex.end_date}} </span>
+    </div>
+
+    <div class="col-md-1 text-end">
+      <a
+        href=""
+        class="btn btn-sm btn-primary"
+        style="background: linear-gradient(135deg, #590a9d, #b840d6)"
+      >
+        <i class="ti ti-edit"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% empty %}
+
+<p>No experience added yet.</p>
+
+{% endfor %}
+
+<h4 class="section-title ms-2">Skills</h4>
+
+{% if skills %}
+
+<div class="d-flex flex-wrap gap-2 ms-4">
+  {% for skill in skills %}
+
+  <span class="skill-badge"> {{skill.skill_name}} </span>
+
+  {% endfor %}
+</div>
+
+{% else %}
+
+<p>No skills added yet.</p>
+
+{% endif %} {% endblock %}

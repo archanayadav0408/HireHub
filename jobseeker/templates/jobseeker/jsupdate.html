@@ -1,0 +1,562 @@
+{% extends 'jobseeker/jobseekerbase.html'%} {% load static %} {% block admin %}
+<div class="container-fluid">
+  <h2 class="fw-bold mb-4">Update Profile</h2>
+
+  <ul class="nav nav-pills profile-tabs mb-4">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        data-bs-toggle="tab"
+        data-bs-target="#tab1"
+      >
+        Personal
+      </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2">
+        Education
+      </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3">
+        Experience
+      </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4">
+        Additional
+      </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab5">
+        Skills
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="tab1">
+      <form method="post" enctype="multipart/form-data" class="row g-4">
+        {% csrf_token %}
+
+        <div class="col-md-3 text-center">
+          {% if js.picture %}
+          <img
+            src="{{js.picture.url}}"
+            class="rounded-circle shadow-sm profile-photo"
+            width="150px" height="150px"
+          />
+          {% else %} No Image Found {% endif %}
+
+          <input type="file" name="picture" class="form-control mt-3" id="pro"/>
+        </div>
+
+        <div class="col-md-9">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">First Name</label>
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                value="{{js.first_name}}"
+                class="form-control"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Last Name</label>
+              <input
+                type="text"
+                name="lastname"
+                id="lastname"
+                value="{{js.last_name}}"
+                class="form-control"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">DOB</label>
+              <input
+                type="date"
+                name="dob"
+                id="dob"
+                value="{{js.dob|date:'Y-m-d'}}"
+                class="form-control"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Gender</label>
+              <select name="gender" class="form-select" id="gender">
+                <option value="{{js.gender}}" selected>{{js.gender| title}}</option>
+                <option value="" disabled>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="na">Prefer Not To Say</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Contact Number</label>
+              <input
+                type="number"
+                name="contact_no"
+                id="contact_no"
+                value="{{js.contact_no}}"
+                class="form-control"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value="{{js.email}}"
+                class="form-control"
+              />
+            </div>
+          </div>
+        </div>
+
+        <h5 class="section-title mt-4">Address Details</h5>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label>House / Street</label>
+            <input
+              type="text"
+              name="locality"
+              id="locality"
+              value="{{js.locality}}"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label>City</label>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              value="{{js.city}}"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label>Zip Code</label>
+            <input
+              type="text"
+              name="zip_code"
+              id="zip_code"
+              value="{{js.zip_code}}"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label>District</label>
+            <input
+              type="text"
+              name="district"
+              id="district"
+              value="{{js.district}}"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label>State</label>
+            <input
+              type="text"
+              name="state"
+              id="state"
+              value="{{js.state}}"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label>Country</label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              value="{{js.country}}"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="col-md-12" align="center">
+        <button type="submit" class="btn btn-gradient mt-4" style="width: 30%;font-size: 1rem;">
+          Save Changes
+        </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="tab-pane fade" id="tab2">
+      <h5 class="section-title mb-3">Education</h5>
+
+      {% for e in educations %}
+
+      <div class="profile-block p-3 mb-3">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h6 class="fw-bold mb-1">{{e.degree_name|title}}</h6>
+
+            <p class="mb-1">{{e.specialization}}</p>
+
+            <p class="text-muted mb-0">{{e.institute}} • {{e.university}}</p>
+          </div>
+
+          <div class="col-md-3 text-end">
+            <span class="fw-semibold"> {{e.start_year}} - {{e.end_year}} </span>
+          </div>
+
+          <div class="col-md-1 text-end">
+            <a href="" class="btn btn-sm btn-gradient">
+              <i class="ti ti-edit"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+
+      <p class="text-muted">No education added yet.</p>
+
+      {% endfor %}
+
+      <button
+        class="btn btn-gradient mt-3"
+        data-bs-toggle="collapse"
+        data-bs-target="#addEducation"
+      >
+        Add Education <i class="ti ti-plus"></i>
+      </button>
+
+      <div class="collapse mt-4" id="addEducation">
+        <form method="Post" action="{% url 'save_education' %}" class="row g-3">
+          {% csrf_token %}
+
+          <div class="col-md-6">
+            <label class="form-label">Degree</label>
+            <select name="degree_name" id="dn" class="form-select">
+              <option disabled selected>Select Degree</option>
+              <option value="high School">High School</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="diploma">Diploma</option>
+              <option value="bachelors">Bachelor's</option>
+              <option value="master">Master's</option>
+              <option value="phd">Phd</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="sp">Specialization</label>
+            <input type="text" name="specialization" class="form-control" id="sp"/>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label"for="inst">Institute</label>
+            <input type="text" name="institute" class="form-control" id="inst"/>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="uni">University</label>
+            <input type="text" name="university" class="form-control" id="uni"/>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="sy">Start Year</label>
+            <input type="number" name="start_year" id="sy" class="form-control" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="ey">End Year</label>
+            <input type="number" name="end_year" id="ey" class="form-control" />
+          </div>
+
+          <div class="col-md-12" align="center">
+        <button type="submit" class="btn btn-gradient mt-4" style="width: 30%;font-size: 1rem;">
+          Save Education
+        </button>
+        </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab3">
+      <h5 class="section-title mb-3">Experience</h5>
+
+      {% for ex in experience %}
+
+      <div class="profile-block p-3 mb-3">
+        <div class="row align-items-start-center">
+          <div class="col-md-8">
+            <h6 class="fw-bold mb-1">{{ex.company_name|title}}</h6>
+
+            <p class="mb-1">{{ex.designation}}</p>
+
+            <p class="text-muted mb-0">{{ex.description|linebreaks}}</p>
+          </div>
+
+          <div class="col-md-3 text-end">
+            <span class="fw-semibold">
+              {{ex.start_date}} - {{ex.end_date}}
+            </span>
+          </div>
+
+          <div class="col-md-1 text-end">
+            <a href="" class="btn btn-sm btn-gradient">
+              <i class="ti ti-edit"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+
+      <p class="text-muted">No experience added yet.</p>
+
+      {% endfor %}
+
+      <button
+        class="btn btn-gradient mt-3"
+        data-bs-toggle="collapse"
+        data-bs-target="#addExperience"
+      >
+        Add Experience <i class="ti ti-plus"></i>
+      </button>
+
+      <div class="collapse mt-4" id="addExperience">
+        <form
+          method="post"
+          action="{% url 'save_experience' %}"
+          class="row g-3"
+        >
+          {% csrf_token %}
+
+          <div class="col-md-6">
+            <label class="form-label" for="company">Company / Organization</label>
+            <input type="text" name="company_name" class="form-control" id="company"/>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="desig">Designation</label>
+            <input type="text" name="designation" class="form-control" id="desig"/>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="sd">Start Date</label>
+            <input type="date" name="start_date" id="sd" class="form-control" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="ed">End Date</label>
+            <input type="date" name="end_date" id="ed" class="form-control" />
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label" for="description">Description</label>
+            <textarea name="description" class="form-control" id="description"></textarea>
+          </div>
+
+          <div class="col-md-12" align="center">
+        <button type="submit" class="btn btn-gradient mt-4" style="width: 30%;font-size: 1rem;">
+          Add Experience
+        </button>
+        </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="tab4">
+      <h5 class="section-title mb-3">Additional Details</h5>
+
+      <form
+        action="{% url 'save_additional' %}"
+        method="post"
+        enctype="multipart/form-data"
+        class="row g-4"
+      >
+        {% csrf_token %}
+
+        <h6 class="fw-semibold mt-4">Documents</h6>
+
+        <div class="col-md-6">
+          <label class="form-label" for="resume">Upload Resume</label>
+          <input type="file" name="resume" id="resume" class="form-control" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label" for="cl">Cover Letter (Optional)</label>
+          <input type="file" name="cover_letter" id="cl" class="form-control" />
+        </div>
+
+
+        <h6 class="fw-semibold mt-4">Salary Information</h6>
+
+        <div class="col-md-6">
+          <label class="form-label" for="es">Expected Salary (LPA)</label>
+          <input
+            type="number"
+            name="expected_salary"
+            value="{{js.expected_salary}}"
+            class="form-control"
+            id="es"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label" for="cs">Current Salary (LPA)</label>
+          <input
+            type="number"
+            name="current_salary"
+            value="{{js.current_salary}}"
+            class="form-control"
+            id="cs"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label" for="np">Notice Period (Days)</label>
+          <input
+            type="number"
+            name="notice_period"
+            value="{{js.notice_period}}"
+            class="form-control"
+            id="np"
+          />
+        </div>
+
+        <h6 class="fw-semibold mt-4">Professional Links</h6>
+
+        <div class="col-md-6">
+          <label class="form-label" for="linkedin_url">LinkedIn</label>
+          <input
+            type="text"
+            name="linkedin_url"
+            id="linkedin_url"
+            value="{{js.linkedin_url}}"
+            class="form-control"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label" for="git">GitHub</label>
+          <input
+            type="text"
+            name="github_url"
+            id="git"
+            value="{{js.github_url}}"
+            class="form-control"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label" for="port">Portfolio Website</label>
+          <input
+            type="text"
+            name="portfolio_url"
+            id="port"
+            value="{{js.portfolio_url}}"
+            class="form-control"
+          />
+        </div>
+
+        <h6 class="fw-semibold mt-4">Availability</h6>
+
+        <div class="col-md-6">
+          <div class="form-check form-switch mt-2">
+            <input
+              type="checkbox"
+              name="is_open_to_work"
+              class="form-check-input"
+              id="work"
+              {%
+              if
+              js.is_open_to_work
+              %}checked{%
+              endif
+              %}
+            />
+
+            <label class="form-check-label" for="work">
+              Open To Work
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-12" align="center">
+        <button type="submit" class="btn btn-gradient mt-4" style="width: 30%;font-size: 1rem;">
+          Save Additional Details
+        </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="tab-pane fade" id="tab5">
+      <h5 class="section-title mb-3">Skills</h5>
+
+      {% if skills %}
+      <div class="mb-4">
+        <h6 class="fw-semibold mb-2">Your Skills</h6>
+
+        <div class="d-flex flex-wrap gap-2">
+          {% for skill in skills %}
+
+          <span class="badge rounded-pill px-3 py-2 skill-pill">
+            {{skill.skill_name}}
+          </span>
+
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <form method="Post" action="{% url 'save_js_skills' %}" class="row g-3">
+        {% csrf_token %}
+
+        <div class="col-md-6">
+          <label class="form-label">Add Skills</label>
+
+          <input
+            type="text"
+            list="skills"
+            name="skills"
+            id="skill"
+            class="form-control"
+            placeholder="Eg. Python, Java, Django"
+          />
+
+          <datalist id="skills">
+            {% for s in all_skills %}
+            <option value="{{s.skill_name}}"></option>
+            {% endfor %}
+          </datalist>
+
+          <small class="text-muted">
+            Separate multiple skills using commas
+          </small>
+        </div>
+
+        <div class="col-md-12">
+        <button type="submit" class="btn btn-gradient mt-4" style="width: 20%;font-size: 1rem;">
+          Save Skills
+        </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

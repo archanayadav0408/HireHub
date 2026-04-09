@@ -1,0 +1,33 @@
+{% extends 'jobseeker/jobseekerbase.html'%}
+{% load static %}
+{% block admin %}
+<h1>Saved Jobs</h1>
+
+    <table class="table js-dash-table">
+        <thead>
+       <tr>
+            <th>S.no.</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Job Type</th>
+            <th>Deadline</th>
+       </tr>
+       </thead>
+            {% for s in saved_jobs %}
+            <tbody>
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{s.job.title}}</td>
+                <td>{{s.job.location}}</td>
+                <td>{{s.job.salary}}</td>
+                <td>{{s.job.get_job_type_display}}</td>
+                <td>{{s.job.deadline}}</td>
+            </tr>
+            </tbody>
+            {% endfor %}
+       
+    </table>
+
+
+{% endblock %}

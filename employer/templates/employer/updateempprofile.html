@@ -1,0 +1,146 @@
+{% extends 'employer/employerbase.html'%}
+{% load static %}
+{% block admin %}
+<h1 class="mb-3">Update Employer Profile</h1>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1" type="button">
+            Professional Details
+        </button>
+    </li>
+
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab2" type="button">
+            Company Details
+        </button>
+    </li>
+
+
+</ul>
+
+<div class="tab-content mt-3">
+   <div class="tab-pane fade show active" id="tab1">
+        <form method="post" enctype="multipart/form-data" class="row g-3">
+            {% csrf_token %}
+
+            <div class="col-md-3 text-center ">
+                {% if emp.picture %}
+                    <img src="{{emp.picture.url}}" alt="No profile chosen"  class="mb-3 img-fluid rounded-circle shadow" style="height: 150px;width: 150px;">
+                {% else %}
+                    no image found
+                {% endif %} <br>
+                <label class="form-label fw-semibold">Profile Picture</label>
+                <input type="file" name="picture" id="pro" class="form-control mb-4">
+            </div>
+
+            <div class="col-md-9">
+                <h5 class="mb-3 text-muted">Personal Information</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="firstname" class="form-label">First Name</label>
+                        <input type="text" name="firstname" value="{{emp.first_name}}" id="firstname" class="form-control mb-4">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="lasttname" class="form-label">Last Name</label>
+                        <input type="text" name="lastname" value="{{emp.last_name}}" id="lastname" class="form-control mb-4">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="dob" class="form-label">DOB</label>
+                        <input type="date" name="dob" value="{{emp.dob|date:'Y-m-d'}}" id="dob" class="form-control mb-4">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select name="gender" id="gender" class="form-select">
+
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male" {% if emp.gender == 'male' %} selected {% endif %}>Male</option>
+                            <option value="female" {% if emp.gender == 'female' %} selected {% endif %}>Female</option>
+                            <option value="na" {% if emp.gender == 'na' %} selected {% endif %}>Prefer Not To Say</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="contact_no" class="form-label">Contact No.</label>
+                        <input type="number" name="contact_no" value="{{emp.contact_no}}" id="contact_no"
+                            class="form-control mb-4">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" value="{{emp.email}}" id="email" class="form-control mb-4">
+                    </div>
+
+                </div>
+                <hr>
+                <h5 class="mb-3 text-muted">Professional Information</h5>
+                <div class="col-md-6">
+                    <label for="designation" class="form-label">Designation</label>
+                    <input type="text" name="designation" value="{{emp.designation}}" id="designation"
+                        class="form-control mb-4">
+                </div>
+
+                <button type="submit"
+                class="btn px-4 py-2 text-white fw-semibold"
+                style="background: linear-gradient(135deg,#590a9d,#a43dbd,#ff8359);border: 0px;">Save Changes</button>
+            </div>
+        </form>
+    </div>
+   <div class="tab-pane fade" id="tab2">
+        
+        <form method="post" action="{% url 'add_company' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5 class="text-muted mb-4">Company Information</h5>
+            <div class="row">
+            <div class="col-md-6">
+                <label for="company_name" class="form-label">Company Name</label>
+                <input type="text" name="company_name" id="company_name" value="" class="form-control mb-2">
+            </div>
+            <div class="col-md-6">
+                <label for="contact_no" class="form-label">Contact No.</label>
+                <input type="number" name="contact_no" id="contact_no" class="form-control mb-3">
+            </div>
+
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control mb-3">
+            </div>
+
+             <div class="col-md-6">
+                <label for="website" class="form-label">Website</label>
+                <input type="text" name="website" id="website" class="form-control mb-3">
+            </div>
+
+             <div class="col-md-6">
+                <label for="industry" class="form-label">Industry</label>
+                <input type="text" name="industry" id="industry" class="form-control mb-3">
+            </div>
+            <div class="col-md-6">
+                <label for="established_at" class="form-label">Established At</label>
+                <input type="date" name="established_at" id="established_at" value="{{emp.established_at|date:'Y-m-d'}}" class="form-control mb-3">
+            </div>
+
+            <div class="col-md-12">
+                <label for="location" class="form-label">Location</label>
+                <textarea type="text" name="location" id="location" class="form-control mb-3"></textarea>
+            </div>
+
+             <div class="col-md-12">
+                <label for="details" class="form-label">Details</label>
+                <textarea type="text" name="details" id="details" class="form-control mb-3"></textarea>
+            </div>
+
+            <div class="mt-3">
+            <button type="submit"
+            class="btn px-4 py-2 text-white fw-semibold border-0"
+            style="background: linear-gradient(135deg,#590a9d,#a43dbd,#ff8359);">
+            Save Company Details
+            </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

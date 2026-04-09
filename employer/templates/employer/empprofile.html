@@ -1,0 +1,103 @@
+{% extends 'employer/employerbase.html'%} {% load static %} {% block admin %}
+
+<h1 class="mb-4 fw-bold">Employer Profile</h1>
+
+<div class="row">
+  <div class="col-lg-3 text-center">
+    {% if emp.picture %}
+        <img
+        src="{{emp.picture.url}}"
+        class="img-fluid rounded-circle shadow-sm mb-3"
+        style="width: 150px; height: 150px; object-fit: cover"
+        />
+    {% else %}
+        No Image Found
+    {% endif %}
+    <h5 class="fw-bold">{{emp.first_name}} {{emp.last_name}}</h5>
+    <p class="text-muted">{{emp.designation}}</p>
+  </div>
+
+  <div class="col-lg-9">
+    <h4 class="text-muted mb-3">Personal Information</h4>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <h5>Full Name</h5>
+        <p>{{emp.first_name}} {{emp.last_name}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Email</h5>
+        <p>{{emp.email}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Contact Number</h5>
+        <p>{{emp.contact_no}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Date of Birth</h5>
+        <p>{{emp.dob}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Gender</h5>
+        <p>{{emp.gender}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Designation</h5>
+        <p>{{emp.designation}}</p>
+      </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <h4 class="text-muted mb-3">Company Information</h4>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Company Name</h5>
+        <p>{{emp.company.company_name}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Industry</h5>
+        <p>{{emp.company.industry}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Website</h5>
+        <p>{{emp.company.website}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Established</h5>
+        <p>{{emp.company.established_at}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Contact Number</h5>
+        <p>{{emp.company.contact_no}}</p>
+      </div>
+
+      <div class="col-md-6">
+        <h5>Email</h5>
+        <p>{{emp.company.email}}</p>
+      </div>
+
+      <div class="col-md-12">
+        <h5>Location</h5>
+        <p>{{emp.company.location}}</p>
+      </div>
+
+      <div class="col-md-12">
+        <h5>Company Details</h5>
+        <p>{{emp.company.details}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

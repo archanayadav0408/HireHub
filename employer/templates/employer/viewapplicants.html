@@ -1,0 +1,160 @@
+{% extends 'employer/employerbase.html'%}
+{% load static %}
+{% block admin %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card p-3">
+            <h4>Application for - {{job.title}}</h4>
+            <table class="table table-hover mt-4">
+                <tr>
+                    <th>S.No</th>
+                    <th>Name</th>
+                    <th>Photo</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>Skills</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                </tr>
+                {% for app in applications %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{app.jobseeker.first_name}}{{app.jobseeker.last_name}}</td>
+                    <td>
+                        {% if app.jobseeker.picture %}
+                        <img src="{{app.jobseeker.picture.url}}" alt="" height="70">
+                        {% else %}
+                        No Profile
+                        {% endif %}
+                    </td>
+
+                    <td>{{app.jobseeker.contact_no}}</td>
+                    <td>{{app.jobseeker.email}}</td>
+                    <td>{% for s in app.jobseeker.skills.all %}
+                        {{s}}
+                        {% endfor %}
+                    </td>
+                    <td><a href="" data-bs-toggle="modal" data-bs-target="#js{{app.jobseeker.id}}"
+                            class="btn btn-success" type="submit">View</i></a>
+
+                   
+                        
+                        </td>
+                        <td>
+                             <form action="{% url 'updatestatus' appid=app.id %}" method="post">
+                        {% csrf_token %}
+                        <select name="status" id="" class="form-select" onchange="this.form.submit()">
+                            <option value="pending" {% if app.status == 'pending'%} selected {% endif %}>Pending</option>
+                            <option value="shortlisted" {% if app.status == 'shortlisted'%} selected {% endif %}>Shortlisted</option>
+                            <option value="selected" {% if app.status == 'selected'%} selected {% endif %}>Selected</option>
+                            <option value="rejected" {% if app.status == 'rejected'%} selected {% endif %}>Rejected</option>
+                        </select>
+                    </form>
+                        </td>
+                </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="js{{app.jobseeker.id}}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header border-0">
+
+                                <h5 class="fw-bold">
+                                    Candidate Profile
+                                </h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-md-4 text-center">
+
+                                        {% if app.jobseeker.picture %}
+
+                                        <img src="{{app.jobseeker.picture.url}}" class="rounded-circle mb-3"
+                                            style="width:120px;height:120px;">
+
+                                        {% else %}
+
+                                        No Image Found
+
+                                        {% endif %}
+
+                                        <h5 class="fw-bold mt-2">
+                                            {{app.jobseeker.first_name}} {{app.jobseeker.last_name}}
+                                        </h5>
+
+                                        <p class="text-muted">
+                                            {{app.jobseeker.city}}, {{app.jobseeker.state}}
+                                        </p>
+
+                                    </div>
+
+                                    <div class="col-md-8">
+
+                                        <div class="mb-3">
+
+                                            <h6 class="fw-bold mb-2">Contact Information</h6>
+
+                                            <p class="mb-1">
+                                                <i class="fa-solid fa-envelope me-2"></i>
+                                                {{app.jobseeker.email}}
+                                            </p>
+
+                                            <p class="mb-1">
+                                                <i class="fa-solid fa-phone me-2"></i>
+                                                {{app.jobseeker.contact_no}}
+                                            </p>
+
+                                        </div>
+
+                                        <div class="mb-3">
+
+                                            <h6 class="fw-bold mb-2">Skills</h6>
+
+                                            <div class="d-flex flex-wrap gap-2">
+
+                                                {% for s in app.jobseeker.skills.all %}
+
+                                                <span class="badge skill-pill">
+                                                    {{s.skill_name}}
+                                                </span>
+
+                                                {% empty %}
+
+                                                <span class="text-muted">No skills listed</span>
+
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer border-0">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+
+                                <button class="btn btn-primary">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </table>
+        </div>
+        <!-- Button trigger modal -->
+
+
+
+    </div>
+</div>
+{% endblock %}

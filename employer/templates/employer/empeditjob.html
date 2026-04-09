@@ -1,0 +1,72 @@
+{% extends 'employer/employerbase.html'%}
+{% load static %}
+{% block admin %}
+
+<div class="row">
+    <div class="col-sm-12 mt-2" style="display: flex;justify-content: center;">
+        <div class="card p-4 shadow-lg" style="width: 90%;border-radius: 25px;">
+            <h3 class="fw-bold pb-2 mb-4" style="color:#590a9d;border-bottom: 3px solid #590a9d;">
+               <i class="fa-solid fa-briefcase me-2"></i>Update Job
+            </h3>
+            <form method="POST" class="row g-3">
+     {% csrf_token %}
+     <div class="col-md-6">
+        <label for="jt" class="form-label postJob-label">Job title</label>
+        <input type="text" name="title" id="jt" class="form-control form-control-lg" value="{{job.title}}">
+     </div>
+      <div class="col-md-6">
+        <label for="type" class="form-label postJob-label">Job type</label>
+        <select name="job_type" id="type" class="form-select form-select-lg">
+            <option value="full_time" {% if job.job_type == "full_time" %}selected{% endif %}>Full time</option>
+            <option value="part_time" {% if job.job_type == "part_time" %}selected{% endif %}>Part time</option>
+            <option value="intership" {% if job.job_type == "internship" %}selected{% endif %}>Internship</option>
+            <option value="contract" {% if job.job_type == "contract" %}selected{% endif %}>Contract</option>
+         </select>
+     </div>
+      <div class="col-md-6">
+        <label for="sal" class="form-label postJob-label">Salary</label>
+        <div class="input-group">
+         <span class="input-group-text">₹</span>
+         <input type="number" name="salary" class="form-control form-control-lg" value="{{job.salary}}">
+     </div>
+     </div>
+
+     <div class="col-md-6">
+        <label for="loc" class="form-label postJob-label">Location</label>
+        <input type="text" name="location" id="loc" class="form-control form-control-lg" value="{{job.location}}">
+     </div>
+
+     <div class="col-md-6">
+        <label for="skill" class="form-label postJob-label">Skill Required(Comma separated)</label>
+        <input type="text" name="skills_required" list="skills" id="skill" class="form-control form-control-lg" value="{% for s in job.skills_required.all %}{{s.skill_name}}{% if not forloop.last %}, {% endif %}{% endfor %}">
+        <datalist id="skills">
+            {% for d in all_skills %}
+            <option value="{{d.skill_name}}"></option>
+            {% endfor %}
+        </datalist>
+     </div>
+      <div class="col-md-6">
+        <label for="vac" class="form-label postJob-label">No.of Vacancy</label>
+        <input type="number" name="vacancy" id="vac" class="form-control form-control-lg" value="{{job.vacancy}}">
+     </div>
+
+      <div class="col-md-6">
+        <label for="dead" class="form-label postJob-label">Deadline</label>
+        <input type="date" name="deadline" id="dead" class="form-control form-control-lg" value="{{job.deadline|date:'Y-m-d'}}">
+     </div>
+       <div class="col-md-12">
+        <label for="desc" class="form-label postJob-label">Job Description</label>
+        <textarea type="text" name="description" id="desc" rows="5"
+         class="form-control" >{{job.description}}</textarea>
+     </div>
+     <div class="col-sm-12 ">
+       <button type="submit" class="btn px-5 py-2 mt-2" style="background: linear-gradient(135deg,#590a9d,#a43dbd,#ff8359); border:none;font-size: 1.1rem;font-weight: 600;color: white;">
+         <i class="fa-solid fa-paper-plane me-2"></i>Update Job
+       </button>
+     </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

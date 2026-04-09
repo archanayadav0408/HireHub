@@ -1,0 +1,209 @@
+{% extends 'employer/employerbase.html' %} {% load static %} {% block admin %}
+
+<h2 class="fw-bold mb-4">Employer Dashboard</h2>
+
+<div class="container-fluid">
+
+    <div class="profile-header p-4 mb-4 rounded-3" style="
+    background: linear-gradient(135deg, #590a9d, #a43dbd, #ff8359);
+    color: white;">
+    <div class="row align-items-center">
+        <div class="col-md-2 text-center">
+        {% if emp.picture %}
+        <img
+          src="{{emp.picture.url}}"
+          class="rounded-circle"
+          style="width: 90px; height: 90px;"
+        />
+        {% else %} 
+        No Image Found 
+        {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="fw-bold text-white mb-1">
+                {{emp.first_name}} {{emp.last_name}}
+            </h3>
+
+            <p class="mb-1"><i class="fa-solid fa-building me-2"></i>{{emp.company.company_name}}</p>
+
+            <p class="mb-1"><i class="fa-solid fa-briefcase me-2"></i>{{emp.company.industry}}</p>
+
+        </div>
+
+        <div class="col-md-5 text-end align-self-center ms-5">
+            <a href="{% url 'emppostjobs' %}" class="btn shadow" style="
+          background-color: white;
+          width: 40%;
+          font-size: 1rem;
+          color: black;
+          font-weight: 500;
+          border: 2px solid gray;
+        ">
+                Post New Job
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
+        <div class="card d-board-card" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)">
+            <div class="card-body">
+                <div class="top" style="
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 2rem;
+          ">
+                    <h3 class="card-title">{{total_jobs}}</h3>
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <p class="card-text" style="font-weight: 600">Total Jobs</p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <div class="progress-bar w-85 bg-info" style="width: 90%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card d-board-card" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)">
+            <div class="card-body">
+                <div class="top" style="
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 2rem;
+          ">
+                    <h3 class="card-title">{{applications}}</h3>
+                    <i class="fa-solid fa-pager"></i>
+                </div>
+                <p class="card-text" style="font-weight: 600">Total Applications</p>
+                <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <div class="progress-bar bg-success" style="width: 70%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card d-board-card" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)">
+            <div class="card-body">
+                <div class="top" style="
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 2rem;">
+                    <h3 class="card-title">{{active_jobs}}</h3>
+                    <i class="fa-solid fa-check-to-slot"></i></i>
+                </div>
+                <p class="card-text" style="font-weight: 600">Active Jobs</p>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <div class="progress-bar w-50 bg-warning" style="width: 50%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card d-board-card" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3)">
+            <div class="card-body">
+                <div class="top" style="
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 2rem;
+          ">
+                    <h3 class="card-title">{{closed_jobs}}</h3>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <p class="card-text" style="font-weight: 600">Closed Jobs</p>
+                <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-danger" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div>
+    <h4 class="fw-bold mb-3 mt-3">Recent Job Posts</h4>
+    <div class="row m-0 p-0 justify-content-around">
+        {% for job in jobs %}
+        <div class="job-card p-3 mb-3">
+            <div class="row align-items-center ">
+                <div class="col-md-7">
+                    <h6 class="fw-bold mb-1">{{job.title}}</h6>
+
+                    <p class="text-muted mb-1">
+                        {{job.company.company_name}} • <i class="fa-solid fa-location-dot"></i> {{job.location}}
+                    </p>
+
+                    <p class="mb-0">₹ {{job.salary}}</p>
+                </div>
+
+                <div class="col-md-2 text-center">
+          {% if job.is_active %}
+
+          <span class="badge bg-success px-3 py-2 fw-bold fs-5">Active</span>
+
+          {% else %}
+
+          <span class="badge bg-danger px-3 py-2 fw-bold fs-5">Closed</span>
+
+          {% endif %}
+        </div>
+
+                <div class="col-md-3 text-end">
+          <a
+            href="{% url 'jobdetails' job.id %}"
+            class="btn btn-outline-primary btn-sm px-3 py-2 fw-bold"
+          >
+            View Job
+          </a>
+        </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<h4 class="fw-bold mb-3 mt-3">Recent Applications</h4>
+<div class="row">
+<table class="table js-dash-table">
+
+    <thead>
+
+        <tr class="px-4">
+            <th class="text-white" style="font-size: 1rem;">Applicant</th>
+            <th class="text-white" style="font-size: 1rem;">Job</th>
+            <th class="text-white" style="font-size: 1rem;">Status</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for a in recent_applications %}
+
+        <tr>
+          <td>{{a.jobseeker.first_name}} {{a.jobseeker.last_name}}</td>
+
+          <td>{{a.job.title}}</td>
+
+          <td>
+            <span class="badge bg-info"> {{a.status}} </span>
+          </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'admin/adminbase.html'%}
+{% load static %}
+{% block admin %}
+<div class="row">
+    <div class="col-sm-11 mx-auto">
+        <h1 class="mb-4 text-color text-center">
+            Jobseekers Details
+        </h1>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered align-middle">
+                <thead class="navy">
+                    <th class="text-light">Name</th>
+                    <th class="text-light">Profile</th>
+                    <th class="text-light">DOB</th>
+                    <th class="text-light">Gender</th>
+                    <th class="text-light">Contact_no</th>
+                    <th class="text-light">Email</th>
+                    <th class="text-light">Created_at</th>
+                    <th class="text-light">View Details</th>
+                </thead>
+                {% for j in js %}
+                <tbody>
+                    <td>{{j.first_name|title}} {{j.last_name|title}}</td>
+                    <td>
+                        {% if j.picture %}
+                        <img src="{{j.picture.url}}" height="50px" width="50px" class="rounded-circle" alt="">
+                        {% else %}
+                        No Profile
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{j.dob}}
+                    </td>
+                    <td>{{j.gender|title}}</td>
+                    <td>{{j.contact_no}}</td>
+                    <td>{{j.email}}</td>
+                    <td>{{j.created_at|date}}</td>
+                    <td> 
+                        <a href="" class="btn btn-outline-primary"><i class="ti ti-eye"></i></a>
+                    </td>
+                </tbody>
+                {% endfor%}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

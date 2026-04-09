@@ -1,0 +1,24 @@
+
+.stats-section{
+padding:50px 0;
+background: none;
+}
+.stats-section i{
+    background-image: linear-gradient(135deg,#590a9d,#a43dbd,#ff8359);
+    color: transparent;
+    background-clip: text;
+}
+.stats-section h3{
+font-size:30px;
+background-image: linear-gradient(135deg,#590a9d,#a43dbd,#ff8359);
+    color: transparent;
+    background-clip: text;
+font-weight:700;
+}
+
+.stats-section p{
+    background-image: linear-gradient(135deg,#590a9d,#a43dbd,#ff8359);
+    color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}

@@ -1,0 +1,124 @@
+{% extends 'admin/adminbase.html'%}
+{% load static %}
+{% block admin %}
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  <div class="col">
+    <div class="card d-board-card" style="box-shadow:2px 2px 5px rgba(0, 0, 0, 0.3);">
+      <div class="card-body">
+        <div class="top" style="width: 100%;display: flex;justify-content: space-between;font-size: 2rem;">
+        <h3 class="card-title">10,000</h3>
+        <i class="fa-solid fa-users"></i>
+        </div>
+        <p class="card-text" style="font-weight: 600;">Total Users</p>
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar w-85 bg-info" style="width: 90%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card d-board-card" style="box-shadow:2px 2px 5px rgba(0, 0, 0, 0.3);">
+      <div class="card-body">
+        <div class="top" style="width: 100%;display: flex;justify-content: space-between;font-size: 2rem;">
+        <h3 class="card-title">8,567</h3>
+        <i class="fa-solid fa-user-tie"></i>
+        </div>
+        <p class="card-text" style="font-weight: 600;">Job Seekers</p>
+        <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar bg-success" style="width: 70%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card d-board-card" style="box-shadow:2px 2px 5px rgba(0, 0, 0, 0.3);">
+      <div class="card-body">
+        <div class="top" style="width: 100%;display: flex;justify-content: space-between;font-size: 2rem;">
+        <h3 class="card-title">5,890</h3>
+        <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <p class="card-text" style="font-weight: 600;">Total Jobs</p>
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar w-50 bg-warning" style="width: 50%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card d-board-card" style="box-shadow:2px 2px 5px rgba(0, 0, 0, 0.3);">
+      <div class="card-body">
+        <div class="top" style="width: 100%;display: flex;justify-content: space-between;font-size: 2rem;">
+        <h3 class="card-title">507</h3>
+        <i class="fa-solid fa-building"></i>
+        </div>
+        <p class="card-text" style="font-weight: 600;">Employers</p>
+        <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar bg-danger" style="width: 75%"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<hr>
+
+<div class="row">
+  <h1 class="mb-3">TOP EMPLOYERS</h1>
+  <table class="table">
+  <thead>
+    <tr>
+      <th class="text-white" scope="col" style="border-top-left-radius: 15px;">#</th>
+      <th class="text-white" scope="col" >Employer</th>
+      <th class="text-white" scope="col">Jobs Listed</th>
+      <th class="text-white" scope="col" style="border-top-right-radius: 15px;">Recruitments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td class="emp">
+        <img src="{% static 'admin/assets/google.png' %}" height="35px" style="border-radius: 50%;"/>
+        <p>Google</p>
+      </td>
+      <td>1,234</td>
+      <td>5,700</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td class="emp">
+        <img src="{% static 'admin/assets/microsoft.png' %}" height="35px" style="border-radius: 50%;"/>
+        <p>Microsoft</p>
+      </td>
+      <td>1,234</td>
+      <td>5,700</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td class="emp">
+        <img src="{% static 'admin/assets/google.png' %}" height="35px" style="border-radius: 50%;"/>
+        <p>Google</p>
+      </td>
+      <td>1,234</td>
+      <td>5,700</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td class="emp">
+        <img src="{% static 'admin/assets/google.png' %}" height="35px" style="border-radius: 50%;"/>
+        <p>Google</p>
+      </td>
+      <td>1,234</td>
+      <td>5,700</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td class="emp">
+        <img src="{% static 'admin/assets/google.png' %}" height="35px" style="border-radius: 50%;"/>
+        <p>Google</p>
+      </td>
+      <td>1,234</td>
+      <td>5,700</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'employer/employerbase.html'%}
+{% load static %}
+{% block admin %}
+<h1>View Jobs</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.no</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Job Type</th>
+            <th>Salary</th>
+            <th>Skills Required</th>
+            <th>Vacancy</th>
+            <th>Deadline</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in emp_jobs %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{job.title}}</td>
+            <td>{{job.description}}</td>
+            <td>{{job.job_type}}</td>
+            <td>{{job.salary}}</td>
+            <td>
+                {% for s in job.skills_required.all %}
+                {{s}}
+                {% endfor %}
+            </td>
+            <td>{{job.vacancy}}</td>
+            <td>{{job.deadline}}</td>
+            <td>
+                {% if job.is_active %} 
+                <span class="badge text-light bg-success">Active</span> 
+                {% else %}
+                <span class="badge text-light bg-danger">Inactive</span>    
+                {% endif %}                     
+            </td>
+            <td style="white-space: nowrap;">
+                <a href="{% url 'empeditjob' id=job.id %}" class="btn btn-warning p-1"><i class="ti ti-edit"></i></a>
+                <a href="{% url 'deletejob' id=job.id %}" class="btn btn-warning p-1" ><i class="ti ti-trash"></i></a>
+                <a href="{% url 'viewapplicants' id=job.id %}" class="btn btn-warning p-1"><i class="ti ti-eye"></i></a> 
+
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
