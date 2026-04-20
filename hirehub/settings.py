@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com"
+]
+
 
 # Application definition
 
@@ -141,3 +145,6 @@ EMAIL_USE_TLS = True  # Use TLS
 
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")      
+
+
+
